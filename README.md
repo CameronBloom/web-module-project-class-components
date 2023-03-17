@@ -58,6 +58,6 @@ In this project you will build an application that allows for todos to be added,
 
 ## Submission Format
 
-- [ ] Only work on main.
-- [ ] Try to avoid committing broken code.
-- [ ] Make sure to push code at regular intervals.
+- [x] Only work on main.
+- [x] Try to avoid committing broken code.
+- [x] Make sure to push code at regular intervals.

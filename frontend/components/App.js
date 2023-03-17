@@ -17,12 +17,12 @@ export default class App extends React.Component {
         {
           name: 'Bake Cookies',
           id: uuidv4(),
-          completed: true
+          completed: false
         },
         {
           name: 'Build a Website',
           id: uuidv4(),
-          completed: false
+          completed: true
         }
       ],
       newTodo: "",
@@ -31,8 +31,7 @@ export default class App extends React.Component {
     this.addTodo = this.addTodo.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClearComplete = this.handleClearComplete.bind(this);
-    // this.handleStatusToggle = this.handleStatusToggle.bind(this);
-    
+    this.handleToggle = this.handleToggle.bind(this);    
   }
 
   addTodo(event) {
@@ -40,6 +39,7 @@ export default class App extends React.Component {
     const { todos, newTodo } = this.state;
     if (newTodo) {
       this.setState(prevState => ({
+        ...this.state,
         // add the new todo to the list of existing todos
         todos: [...prevState.todos, { name: newTodo, id:uuidv4(), completed: false }],
         // reset input value on submission
@@ -59,15 +59,32 @@ export default class App extends React.Component {
       // return if not completed
       return todo["completed"] === false;
     });
-    // set the state to the filtered todos
-    this.setState({ todos: filteredTodos })
+    // set the state to the filtered todos (always good to destructure...)
+    this.setState({ ...this.state, todos: filteredTodos })
+  }
+
+  handleToggle = (currentId) => {
+    const { todos } = this.state;
+    const clickedId = currentId;
+    this.setState({
+      ...this.state,
+      todos: todos.map((todo) => {
+        if (todo.id === clickedId) {
+          return {
+            ...todo,
+            completed: !todo.completed
+          }
+        }
+        return todo;
+      })
+    })
   }
 
   render() {
     return (
       <div>
         <h1>Todo List</h1>
-        <TodoList todos={this.state.todos}/>
+        <TodoList todos={this.state.todos} handleToggle={ this.handleToggle }/>
         <Form newTodo={this.state.newTodo} addTodo={this.addTodo} handleInputChange={this.handleInputChange}/>
         <button onClick={() => this.handleClearComplete() }>Clear Completed Tasks</button>
       </div> 
