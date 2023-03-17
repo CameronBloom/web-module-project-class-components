@@ -17,7 +17,7 @@ export default class App extends React.Component {
         {
           name: 'Bake Cookies',
           id: uuidv4(),
-          completed: false
+          completed: true
         },
         {
           name: 'Build a Website',
@@ -30,6 +30,7 @@ export default class App extends React.Component {
 
     this.addTodo = this.addTodo.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleClearComplete = this.handleClearComplete.bind(this);
     // this.handleStatusToggle = this.handleStatusToggle.bind(this);
     
   }
@@ -52,21 +53,23 @@ export default class App extends React.Component {
     this.setState({ newTodo: event.target.value });
   }
 
+  handleClearComplete() {
+    const { todos } = this.state;
+    const filteredTodos = todos.filter((todo) => {
+      // return if not completed
+      return todo["completed"] === false;
+    });
+    // set the state to the filtered todos
+    this.setState({ todos: filteredTodos })
+  }
+
   render() {
     return (
       <div>
         <h1>Todo List</h1>
         <TodoList todos={this.state.todos}/>
         <Form newTodo={this.state.newTodo} addTodo={this.addTodo} handleInputChange={this.handleInputChange}/>
-        <div>
-          <input
-            type="text"
-            value={this.state.newTodo}
-            onChange={this.handleInputChange}
-            placeholder="Enter a new todo item"
-          />
-          <button onClick={this.addTodo}>Add Todo</button>
-        </div>
+        <button onClick={() => this.handleClearComplete() }>Clear Completed Tasks</button>
       </div> 
     );
   }
