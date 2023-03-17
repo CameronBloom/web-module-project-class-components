@@ -38,9 +38,9 @@ In this project you will build an application that allows for todos to be added,
 
 ### Task 1: Project Set Up
 
-- Fork, clone, and `npm install`.
-- Launch the project on a development server executing `npm run dev`.
-- Visit your widget by navigating to `http://localhost:3000` with Chrome.
+- [x] Fork, clone, and `npm install`.
+- [x] Launch the project on a development server executing `npm run dev`.
+- [x] Visit your widget by navigating to `http://localhost:3000` with Chrome.
 
 ### Task 2: Project Requirements
 
