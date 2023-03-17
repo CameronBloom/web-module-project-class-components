@@ -1,6 +1,7 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import TodoList from './TodoList';
+import Form from './Form';
 
 export default class App extends React.Component {
   constructor() {
@@ -33,7 +34,8 @@ export default class App extends React.Component {
     
   }
 
-  addTodo() {
+  addTodo(event) {
+    event.preventDefault();
     const { todos, newTodo } = this.state;
     if (newTodo) {
       this.setState(prevState => ({
@@ -55,6 +57,7 @@ export default class App extends React.Component {
       <div>
         <h1>Todo List</h1>
         <TodoList todos={this.state.todos}/>
+        <Form newTodo={this.state.newTodo} addTodo={this.addTodo} handleInputChange={this.handleInputChange}/>
         <div>
           <input
             type="text"
